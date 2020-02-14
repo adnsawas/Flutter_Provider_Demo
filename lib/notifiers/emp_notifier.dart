@@ -3,20 +3,26 @@ import 'package:dammam_university_workshop/services/employees_service.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesNotifier extends ChangeNotifier {
-  List<Employee> _employees = [
-    Employee("Ahmad"),
-    Employee("Mohammad"),
-    Employee("Ali")
-  ];
+  List<Employee> _employees = [];
+  static String url = "http://dummy.restapiexample.com/api/v1";
+
+  bool loading = false;
 
   EmployeesNotifier() {
-    EmployeesService().fetchEmployees().then((data) {
-      _employees = data;
-      notifyListeners();
-    });
+    refresh();
   }
 
   List<Employee> get getEmp => _employees;
+
+  void refresh() {
+    loading = true;
+    notifyListeners();
+    EmployeesService.fetchEmployees().then((data) {
+      _employees = data;
+      loading = false;
+      notifyListeners();
+    });
+  }
 
   void toggleFav(Employee employee) {
     var empIndex = _employees.indexOf(employee);

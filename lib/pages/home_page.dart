@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
       child: Center(child: Consumer<EmployeesNotifier>(
         builder: (context, emps, child) {
           return Text("Number of liked employees: ${emps.getLikes()}",
-          style: TextStyle(fontSize: 40), textAlign: TextAlign.center,);
+          style: TextStyle(fontSize: 25), textAlign: TextAlign.center,);
         }
       )
       )
